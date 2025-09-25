@@ -11,7 +11,8 @@ export const getObtenerTodosLosUsuarios = async (req,res,next) => {
 
 export const getObtenerPorEmail = async (req,res,next) => {
     try{
-        const result = await autorService.getUserByEmail();
+        const { correo } = req.params;
+        const result = await autorService.getUserByEmail(correo);  
         res.json(result);
     }catch(err){
         return next(err);
@@ -35,12 +36,16 @@ export const postCrearUsuario = async (req,res,next) => {
         return next(err);
     }
 };
-export const putActualizarUsuario = async (req,res,next) => {
-    try{
-        const result = await autorService.ActualizarAutor();
+export const putActualizarCategoria = async (req, res, next) => {
+    try {
+        const { id_categoria } = req.params;
+        const { nombre_categoria, clasificacion } = req.body;
+
+        const result = await categoriaService.actualizarCategoria([nombre_categoria, clasificacion, id_categoria]);
+
         res.json(result);
-    }catch(err){
-        return next(err);
+    } catch (err) {
+        next(err);
     }
 };
 

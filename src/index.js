@@ -1,6 +1,7 @@
 import express from 'express';
 import autoresRouter from './routes/autores.js';
 import categoriasRouter from './routes/categorias.js';
+import libros from './routes/libros.js';
 import dotenv from 'dotenv';
 import { errorHandler } from './middlewares/errorHandler.js'; 
 dotenv.config();
@@ -13,6 +14,7 @@ app.get('/',(req,res)=> {
 
 app.use('/autores', autoresRouter);
 app.use('/categorias', categoriasRouter);
+app.use('/libros', libros);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {

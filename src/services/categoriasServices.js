@@ -8,13 +8,13 @@ export const getAllCategories = async () => {
 
 export const getBuscarNombre = async (nombre_categoria) => {
     const buscar = `%${nombre_categoria}%`;
-    const result = await pool.query('SELECT * FROM categorias WHERE nombre_categoria LIKE $1', [buscar]);
+    const result = await pool.query('SELECT * FROM categorias WHERE nombre_categoria ILIKE $1', [buscar]);
     return result.rows;
 };
 
 export const postCrearCategoria = async (nombre_categoria, clasificacion) => {
     try {
-        const query = `INSERT INTO categorias (nombre_categoria, clasificacion ) RETURNING *;`;
+        const query = `INSERT INTO categorias (nombre_categoria, clasificacion ) VALUES ($1, $2) RETURNING *;`;
 
         const result = await pool.query(query, [nombre_categoria, clasificacion]);
         return result.rows[0];
@@ -23,18 +23,18 @@ export const postCrearCategoria = async (nombre_categoria, clasificacion) => {
     }
 }
 
-export const actualizarCategorias = async (categoria) =>{
-    const query = `UPDATE categorias SET nombre=$1, clasificacion=$2 RETURNING *;`
-
-    try{
+export const actualizarCategoria = async (categoria) => {
+    const query = `UPDATE categorias SET nombre_categoria=$1, clasificacion=$2 WHERE id_categoria=$3 RETURNING *;`;
+    try {
         const result = await pool.query(query, categoria);
-
-        if(result.rowCount === 0) return result.status(404).json({message: 'Categoria no encontrado'});
+        if (result.rowCount === 0) {
+            throw new Error('Categoría no encontrada');
+        }
         return result.rows[0];
-    }catch(err){
-        res.status(500).json({error: err.message});
+    } catch (err) {
+        throw err;
     }
-}
+};
 
 export const eliminarCategoria = async (id_categoria) => {
     const categoriaAEliminar = await pool.query(`SELECT * FROM categorias WHERE id_categoria=$1`, [id_categoria]);

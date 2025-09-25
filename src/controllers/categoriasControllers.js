@@ -27,12 +27,16 @@ export const postCrearCategoria = async (req,res,next) => {
         return next(err);
     }
 };
-export const putActualizarCategoria = async (req,res,next) => {
-    try{
-        const result = await categoriaService.actualizarCategorias();
+export const putActualizarCategoria = async (req, res, next) => {
+    try {
+        const { id_categoria } = req.params;
+        const { nombre_categoria, clasificacion } = req.body;
+
+        const result = await categoriaService.actualizarCategoria([nombre_categoria, clasificacion, id_categoria]);
+
         res.json(result);
-    }catch(err){
-        return next(err);
+    } catch (err) {
+        next(err);
     }
 };
 
