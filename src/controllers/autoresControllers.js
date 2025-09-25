@@ -1,8 +1,8 @@
-import * as userService from '../services/usersServices.js';
+import * as autorService from '../services/autoresServices.js';
 
 export const getObtenerTodosLosUsuarios = async (req,res,next) => {
     try{
-        const result = await userService.getAllUsers();
+        const result = await autorService.getAllUsers();
         res.json(result);
     }catch(err){
         return next(err);
@@ -11,7 +11,7 @@ export const getObtenerTodosLosUsuarios = async (req,res,next) => {
 
 export const getObtenerPorEmail = async (req,res,next) => {
     try{
-        const result = await userService.getUserByEmail();
+        const result = await autorService.getUserByEmail();
         res.json(result);
     }catch(err){
         return next(err);
@@ -19,7 +19,7 @@ export const getObtenerPorEmail = async (req,res,next) => {
 };
 export const getBuscarNombre = async (req,res,next) => {
     try{
-        const result = await userService.getBuscarNombre();
+        const result = await autorService.getBuscarNombre();
         res.json(result);
     }catch(err){
         return next(err);
@@ -28,16 +28,16 @@ export const getBuscarNombre = async (req,res,next) => {
 
 export const postCrearUsuario = async (req,res,next) => {
     try{
-        const{nombre,documento,carnet,email,contrasenia} = req.body;
-        const newUser = await userService.postCrearUsuario(nombre,documento,carnet,email,contrasenia);
-        res.status(201).json(newUser);
+        const{nombre,correo} = req.body;
+        const newAutor = await autorService.postCrearAutor(nombre,correo);
+        res.status(201).json(newAutor);
     }catch(err){
         return next(err);
     }
 };
 export const putActualizarUsuario = async (req,res,next) => {
     try{
-        const result = await userService.ActualizarUsuario();
+        const result = await autorService.ActualizarAutor();
         res.json(result);
     }catch(err){
         return next(err);
@@ -46,8 +46,8 @@ export const putActualizarUsuario = async (req,res,next) => {
 
 export const deleteEliminarUsuario = async (req,res,next) => {
     try{
-        const {id_usuario} = req.params;
-        const result = await userService.eliminarUsuario(id_usuario);
+        const {id_autor} = req.params;
+        const result = await autorService.eliminarAutor(id_autor);
         res.status(200).json(result);
     }catch(err){
         return next(err);
