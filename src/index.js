@@ -2,7 +2,6 @@ import express from 'express';
 import autoresRouter from './routes/autores.js';
 import libros from './routes/libros.js';
 import categoriasRouter from './routes/categorias.js';
-import libros from './routes/libros.js';
 import dotenv from 'dotenv';
 import { errorHandler } from './middlewares/errorHandler.js'; 
 dotenv.config();
