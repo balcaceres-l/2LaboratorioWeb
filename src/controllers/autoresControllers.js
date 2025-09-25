@@ -36,16 +36,14 @@ export const postCrearUsuario = async (req,res,next) => {
         return next(err);
     }
 };
-export const putActualizarCategoria = async (req, res, next) => {
-    try {
-        const { id_categoria } = req.params;
-        const { nombre_categoria, clasificacion } = req.body;
-
-        const result = await categoriaService.actualizarCategoria([nombre_categoria, clasificacion, id_categoria]);
-
+export const putActualizarUsuario = async (req,res,next) => {
+    try{
+        const {id_autor} = req.params;
+        const {nombre, correo} = req.body;
+        const result = await autorService.actualizarAutor([nombre, correo, id_autor]);
         res.json(result);
-    } catch (err) {
-        next(err);
+    }catch(err){
+        return next(err);
     }
 };
 

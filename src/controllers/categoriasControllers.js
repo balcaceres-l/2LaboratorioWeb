@@ -43,7 +43,7 @@ export const putActualizarCategoria = async (req, res, next) => {
 export const deleteEliminarCategoria = async (req,res,next) => {
     try{
         const {id_categoria} = req.params;
-        const result = await autorService.eliminarCategoria(id_categoria);
+        const result = await categoriaService.eliminarCategoria(id_categoria);
         res.status(200).json(result);
     }catch(err){
         return next(err);

@@ -1,23 +1,74 @@
-
-CREATE DATABASE IF NOT EXISTS biblioteca;
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
-CREATE TABLE IF NOT EXISTS autores (
-    id_autor UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre VARCHAR(255) NOT NULL,
-    correo VARCHAR(255) NOT NULL
-);
+CREATE DATABASE biblioteca
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_El Salvador.1252'
+    LC_CTYPE = 'Spanish_El Salvador.1252'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
 
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre_categoria VARCHAR(255) NOT NULL,
     clasificacion VARCHAR(100) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS autores (
+    id_autor UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nombre VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL
+);
 CREATE TABLE IF NOT EXISTS libros (
     id_libro UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    titulo VARCHAR(500) NOT NULL CHECK (LENGTH(titulo) >= 10),
-    anio_publicacion INTEGER NOT NULL CHECK (anio_publicacion > 1900),
-    autor_id UUID REFERENCES autores(id_autor) ON DELETE SET NULL, 
-    categoria_id UUID REFERENCES categorias(id_categoria) ON DELETE SET NULL  
+    titulo VARCHAR(500) NOT NULL,
+    anio_publicacion INTEGER NOT NULL,
+    autor_id UUID  REFERENCES autores(id_autor) ON DELETE SET NULL,
+    categoria_id UUID REFERENCES categorias(id_categoria) ON DELETE SET NULL
 );
+INSERT INTO categorias (nombre_categoria, clasificacion) VALUES
+('Ficción', 'Novela contemporánea'),
+('Ciencia Ficción', 'Género futurista'),
+('Terror', 'Suspenso y horror'),
+('Biografía', 'No ficción personal'),
+('Historia', 'No ficción histórica'),
+('Fantasía', 'Género imaginario');
+insert into autores(nombre, correo) values
+('Roque Dalton', 'roque.dalton@gmail.com')
+-- 2. Insertar autores (10 ejemplos)
+INSERT INTO autores (nombre, correo) VALUES
+('Gabriel García Márquez', 'gabriel.m@ejemplo.com'),
+('J.K. Rowling', 'jk.rowling@ejemplo.com'),
+('Stephen King', 'stephen.king@ejemplo.com'),
+('Harper Lee', 'harper.lee@ejemplo.com'),
+('George Orwell', 'george.orwell@ejemplo.com'),
+('Jane Austen', 'jane.austen@ejemplo.com'),
+('J.R.R. Tolkien', 'tolkien@ejemplo.com'),
+('Isaac Asimov', 'isaac.asimov@ejemplo.com'),
+('Agatha Christie', 'agatha.christie@ejemplo.com'),
+('Mark Twain', 'mark.twain@ejemplo.com');
+INSERT INTO libros (titulo, anio_publicacion, autor_id, categoria_id) VALUES
+-- Libros de Ficción
+('Cien Años de Soledad', 1967, (SELECT id_autor FROM autores WHERE nombre = 'Gabriel García Márquez'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('Matar a un Ruiseñor', 1960, (SELECT id_autor FROM autores WHERE nombre = 'Harper Lee'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('Orgullo y Prejuicio', 1813, (SELECT id_autor FROM autores WHERE nombre = 'Jane Austen'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('Las Aventuras de Huckleberry Finn', 1884, (SELECT id_autor FROM autores WHERE nombre = 'Mark Twain'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('El Amor en los Tiempos del Cólera', 1985, (SELECT id_autor FROM autores WHERE nombre = 'Gabriel García Márquez'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('Crónica de una Muerte Anunciada', 1981, (SELECT id_autor FROM autores WHERE nombre = 'Gabriel García Márquez'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+('Emma', 1815, (SELECT id_autor FROM autores WHERE nombre = 'Jane Austen'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ficción')),
+
+-- Libros de Ciencia Ficción
+('1984', 1949, (SELECT id_autor FROM autores WHERE nombre = 'George Orwell'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ciencia Ficción')),
+('Fundación', 1951, (SELECT id_autor FROM autores WHERE nombre = 'Isaac Asimov'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ciencia Ficción')),
+('Rebelión en la Granja', 1945, (SELECT id_autor FROM autores WHERE nombre = 'George Orwell'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Ciencia Ficción')),
+
+-- Libros de Terror
+('It', 1986, (SELECT id_autor FROM autores WHERE nombre = 'Stephen King'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Terror')),
+('El Resplandor', 1977, (SELECT id_autor FROM autores WHERE nombre = 'Stephen King'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Terror')),
+('Diez Negritos', 1939, (SELECT id_autor FROM autores WHERE nombre = 'Agatha Christie'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Terror')),
+
+-- Libros de Fantasía
+('Harry Potter y la Piedra Filosofal', 1997, (SELECT id_autor FROM autores WHERE nombre = 'J.K. Rowling'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía')),
+('El Señor de los Anillos', 1954, (SELECT id_autor FROM autores WHERE nombre = 'J.R.R. Tolkien'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía')),
+('Harry Potter y las Reliquias de la Muerte', 2007, (SELECT id_autor FROM autores WHERE nombre = 'J.K. Rowling'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía'));
