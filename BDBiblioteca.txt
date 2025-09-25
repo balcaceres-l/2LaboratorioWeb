@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 CREATE DATABASE biblioteca
     WITH
     OWNER = postgres
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS categorias (
     nombre_categoria VARCHAR(255) NOT NULL,
     clasificacion VARCHAR(100) NOT NULL
 );
-=======
+
 
 CREATE DATABASE IF NOT EXISTS biblioteca;
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS autores (
     nombre VARCHAR(255) NOT NULL,
     correo VARCHAR(255) NOT NULL
 );
-<<<<<<< HEAD
+
 CREATE TABLE IF NOT EXISTS libros (
     id_libro UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     titulo VARCHAR(500) NOT NULL,
@@ -80,7 +80,7 @@ INSERT INTO libros (titulo, anio_publicacion, autor_id, categoria_id) VALUES
 ('Harry Potter y la Piedra Filosofal', 1997, (SELECT id_autor FROM autores WHERE nombre = 'J.K. Rowling'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía')),
 ('El Señor de los Anillos', 1954, (SELECT id_autor FROM autores WHERE nombre = 'J.R.R. Tolkien'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía')),
 ('Harry Potter y las Reliquias de la Muerte', 2007, (SELECT id_autor FROM autores WHERE nombre = 'J.K. Rowling'), (SELECT id_categoria FROM categorias WHERE nombre_categoria = 'Fantasía'));
-=======
+
 
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -94,4 +94,4 @@ CREATE TABLE IF NOT EXISTS libros (
     autor_id UUID REFERENCES autores(id_autor) ON DELETE SET NULL, 
     categoria_id UUID REFERENCES categorias(id_categoria) ON DELETE SET NULL  
 );
->>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
+
