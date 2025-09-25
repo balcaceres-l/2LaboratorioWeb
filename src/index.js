@@ -1,10 +1,8 @@
 import express from 'express';
 import autoresRouter from './routes/autores.js';
-import categoriasRouter from './routes/categorias.js';
-<<<<<<< HEAD
 import libros from './routes/libros.js';
-=======
->>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
+import categoriasRouter from './routes/categorias.js';
+import libros from './routes/libros.js';
 import dotenv from 'dotenv';
 import { errorHandler } from './middlewares/errorHandler.js'; 
 dotenv.config();
@@ -17,10 +15,7 @@ app.get('/',(req,res)=> {
 
 app.use('/autores', autoresRouter);
 app.use('/categorias', categoriasRouter);
-<<<<<<< HEAD
 app.use('/libros', libros);
-=======
->>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
