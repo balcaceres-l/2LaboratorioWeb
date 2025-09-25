@@ -17,14 +17,21 @@ export const runValidations = (validations) =>{
     };
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
 export const createAutorValidators = [
     body('nombre')
     .trim()
     .notEmpty()
+<<<<<<< HEAD
     .withMessage('El nombre es obligatorio')
     .isAlpha('es-ES', { ignore: ' ' })
     .withMessage('El nombre solo debe contener letras y espacios'),
+=======
+    .withMessage('El nombre es obligatorio'),
+>>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
 
     body('correo')
     .trim()
@@ -36,14 +43,19 @@ export const createCategoryValidators = [
     body('nombre_categoria')
     .trim()
     .notEmpty()
+<<<<<<< HEAD
     .withMessage('El nombre de la categoría es obligatorio')
     .isAlpha('es-ES', { ignore: ' ' })
     .withMessage('El nombre de la categoría solo debe contener letras y espacios'),
+=======
+    .withMessage('El nombre de la categoría es obligatorio'), 
+>>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
     
     body('clasificacion')
     .notEmpty()
     .withMessage('La clasificación es obligatoria')
 ];
+<<<<<<< HEAD
 export const createLibroValidators = [
     body('titulo')
         .trim()
@@ -65,3 +77,6 @@ export const createLibroValidators = [
         .isUUID()
         .withMessage('El categoria_id debe ser un UUID válido'),
 ];
+=======
+
+>>>>>>> 95547e47289b37a1fb198a49d014a6b1bc4f67bf
