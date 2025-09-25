@@ -17,21 +17,26 @@ export const runValidations = (validations) =>{
     };
 };
 
-export const createUserValidators = [
+export const createAutorValidators = [
     body('nombre')
     .trim()
     .notEmpty()
     .withMessage('El nombre es obligatorio'),
 
-    body('email')
+    body('correo')
     .trim()
     .isEmail()
-    .withMessage('El email no es válido'),
-
-    body('contrasenia')
-    .isLength({min: 6})
-    .withMessage('La contraseña debe tener al menos 6 caracteres')
+    .withMessage('El correo no es válido'),
 ];
 
-
+export const createCategoryValidators = [
+    body('nombre_categoria')
+    .trim()
+    .notEmpty()
+    .withMessage('El nombre de la categoría es obligatorio'), 
+    
+    body('clasificacion')
+    .notEmpty()
+    .withMessage('La clasificación es obligatoria')
+];
 
